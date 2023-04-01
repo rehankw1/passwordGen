@@ -43,25 +43,28 @@ func main() {
 func generatePassword(passLength, minSpecial, minNumbers, minUpper int) string {
 	var password strings.Builder
 
+	var charsToAdd []string
 	for i := 0; i < minSpecial; i++ {
-		r := rand.Intn(len(specialChars))
-		password.WriteString(string(specialChars[r]))
+		charsToAdd = append(charsToAdd, string(specialChars[rand.Intn(len(specialChars))]))
 	}
-
 	for i := 0; i < minNumbers; i++ {
-		r := rand.Intn(len(numbers))
-		password.WriteString(string(numbers[r]))
+		charsToAdd = append(charsToAdd, string(numbers[rand.Intn(len(numbers))]))
 	}
-
 	for i := 0; i < minUpper; i++ {
-		r := rand.Intn(len(upperChars))
-		password.WriteString(string(upperChars[r]))
+		charsToAdd = append(charsToAdd, string(upperChars[rand.Intn(len(upperChars))]))
 	}
-
 	remain := passLength - minSpecial - minNumbers - minUpper
 	for i := 0; i < remain; i++ {
-		r := rand.Intn(len(allChars))
-		password.WriteString(string(allChars[r]))
+		charsToAdd = append(charsToAdd, string(allChars[rand.Intn(len(allChars))]))
+	}
+
+	for i := len(charsToAdd) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		charsToAdd[i], charsToAdd[j] = charsToAdd[j], charsToAdd[i]
+	}
+
+	for _, c := range charsToAdd {
+		password.WriteString(c)
 	}
 
 	return password.String()
