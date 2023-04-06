@@ -34,7 +34,7 @@ To use the tool, simply run the executable in your terminal:
 
 ```
 
-The tool will prompt randomly generate a password with the length of 23 characters, a minimum of 5 special characters, 6 uppercase characters, and 6 numbers.
+The tool will randomly generate a password with the length of 23 characters, a minimum of 5 special characters, 6 uppercase characters, and 6 numbers.
 
 ## Contributing
 
