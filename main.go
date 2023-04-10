@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
+	"os"
 	"strings"
 
 	"github.com/atotto/clipboard"
@@ -22,15 +24,27 @@ func main() {
 	minSpecial := 5
 	minUpper := 5
 	minNumbers := 6
+	minLower := 5
 
-	password := generatePassword(passLength, minSpecial, minNumbers, minUpper)
-	fmt.Println("Your password has been generated and copied to clipboard")
+	password := generatePassword(passLength, minSpecial, minNumbers, minUpper, minLower)
+	fmt.Println("Your password has been generated, copied to clipboard and stored in password.txt")
 
 	clipboard.WriteAll(password)
 
+	f, err := os.OpenFile("password.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if _, err := f.Write([]byte(password + "\n\n")); err != nil {
+		log.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		log.Fatal(err)
+	}
+
 }
 
-func generatePassword(passLength, minSpecial, minNumbers, minUpper int) string {
+func generatePassword(passLength, minSpecial, minNumbers, minUpper, minLower int) string {
 	var password strings.Builder
 
 	var charsToAdd []string
@@ -43,7 +57,11 @@ func generatePassword(passLength, minSpecial, minNumbers, minUpper int) string {
 	for i := 0; i < minUpper; i++ {
 		charsToAdd = append(charsToAdd, string(upperChars[rand.Intn(len(upperChars))]))
 	}
-	remain := passLength - minSpecial - minNumbers - minUpper
+	for i := 0; i < minLower; i++ {
+		charsToAdd = append(charsToAdd, string(lowerChars[rand.Intn(len(lowerChars))]))
+	}
+
+	remain := passLength - minSpecial - minNumbers - minUpper - minLower
 	for i := 0; i < remain; i++ {
 		charsToAdd = append(charsToAdd, string(allChars[rand.Intn(len(allChars))]))
 	}
