@@ -25,13 +25,13 @@ The password generator can be customized by adjusting the following variables in
     minNumbers: Minimum number of numbers in the password
     minLower: Minimum number of lowercase letters in the password
 
- ## Dependencies   
+## Dependencies
 
  This program does not require any external dependencies. All necessary packages are part of the Go standard library.
 
- ## Supported Operating Systems
+## Supported Operating Systems
 
- This program is supported on Windows, macOS, and most Linux distributions. However, the clipboard functionality may not work on all Linux distributions. If the clipboard functionality does not work on your Linux distribution, the generated password can still be found in the password.txt file.   
+ This program is supported on Windows, macOS, and most Linux distributions. However, the clipboard functionality may not work on all Linux distributions. If the clipboard functionality does not work on your Linux distribution, the generated password can still be found in the password.txt file.
 
 ## Troubleshooting
 
