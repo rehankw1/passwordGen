@@ -1,9 +1,13 @@
-#Prerequisites
+# Random Password Generator
+
+This is a command-line tool that generates a random password, copies it to the clipboard and stores it in a file named password.txt.
+
+## Prerequisites
 
     Go 1.16 or later
     (Optional) Xsel for Linux, which can be installed with sudo apt-get install xsel
 
-#How to use
+## How to use
 
     Clone this repository to your local machine
     Navigate to the repository directory in your terminal
@@ -11,7 +15,7 @@
     Run the command ./random_password_generator to generate a password
     The generated password will be copied to the clipboard and saved to password.txt
 
-#Customization
+## Customization
 
 The password generator can be customized by adjusting the following variables in the main() function:
 
@@ -21,6 +25,6 @@ The password generator can be customized by adjusting the following variables in
     minNumbers: Minimum number of numbers in the password
     minLower: Minimum number of lowercase letters in the password
 
-#Troubleshooting
+## Troubleshooting
 
 If you encounter any issues with copying the generated password to the clipboard, you may need to install Xsel for Linux using the command sudo apt-get install xsel.
