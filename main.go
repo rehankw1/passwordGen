@@ -5,9 +5,9 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"os/exec"
+	"runtime"
 	"strings"
-
-	"github.com/atotto/clipboard"
 )
 
 var (
@@ -29,7 +29,9 @@ func main() {
 	password := generatePassword(passLength, minSpecial, minNumbers, minUpper, minLower)
 	fmt.Println("Your password has been generated, copied to clipboard and stored in password.txt")
 
-	clipboard.WriteAll(password)
+	if err := CopyToClipboard(password); err != nil {
+		log.Fatal(err)
+	}
 
 	f, err := os.OpenFile("password.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
@@ -76,4 +78,25 @@ func generatePassword(passLength, minSpecial, minNumbers, minUpper, minLower int
 	}
 
 	return password.String()
+}
+
+func CopyToClipboard(password string) error {
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/c", "echo", password, "|", "clip")
+	} else if runtime.GOOS == "linux" {
+		cmd = exec.Command("bash", "-c", "echo", password, "|", "xsel", "-b")
+	} else if runtime.GOOS == "darwin" {
+		cmd = exec.Command("pbcopy")
+		cmd.Stdin = strings.NewReader(password)
+	} else {
+		return fmt.Errorf("unsupported platform: %s", runtime.GOOS)
+	}
+
+	err := cmd.Run()
+	if err != nil {
+		return fmt.Errorf("failed to copy password to clipboard: %v", err)
+	}
+
+	return nil
 }
