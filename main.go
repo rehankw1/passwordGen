@@ -83,7 +83,7 @@ func generatePassword(passLength, minSpecial, minNumbers, minUpper, minLower int
 func CopyToClipboard(password string) error {
 	var cmd *exec.Cmd
 	if runtime.GOOS == "windows" {
-		cmd = exec.Command("cmd", "/c", "echo", password, "|", "clip")
+		cmd = exec.Command("cmd", "/c", "echo|set/p="+password+"|clip")
 	} else if runtime.GOOS == "linux" {
 		cmd = exec.Command("bash", "-c", "echo", password, "|", "xsel", "-b")
 	} else if runtime.GOOS == "darwin" {
