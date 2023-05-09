@@ -1,42 +1,26 @@
-# passwordGen
+#Prerequisites
 
-This is a simple command-line tool written in Go to generate a password based on user specifications. The tool generates a random password of a given length, using a combination of lowercase characters, uppercase characters, special characters, and numbers. The user can specify the minimum number of special characters, uppercase characters, and numbers that the generated password must include.
+    Go 1.16 or later
+    (Optional) Xsel for Linux, which can be installed with sudo apt-get install xsel
 
-## Installation
-To use this tool, you must have Go installed on your system.
+#How to use
 
-1. Clone the repository:
+    Clone this repository to your local machine
+    Navigate to the repository directory in your terminal
+    Run the command go build to build the application
+    Run the command ./random_password_generator to generate a password
+    The generated password will be copied to the clipboard and saved to password.txt
 
-``` 
-git clone https://github.com/example/password-generator.git
-```
+#Customization
 
-2. Navigate to the directory:
+The password generator can be customized by adjusting the following variables in the main() function:
 
-```
-cd password-generator
+    passLength: Length of the generated password
+    minSpecial: Minimum number of special characters in the password
+    minUpper: Minimum number of uppercase letters in the password
+    minNumbers: Minimum number of numbers in the password
+    minLower: Minimum number of lowercase letters in the password
 
-```
-3. Build the executable:
+#Troubleshooting
 
-```
-go build main.go
-
-```
-
-
-## Usage
-
-To use the tool, simply run the executable in your terminal:
-
-```
-./main
-
-```
-
-The tool will randomly generate a password with the length of 23 characters, a minimum of 5 special characters, 6 uppercase characters, 6 numbers and 5 lowercase characters. 
-The password will be copied to clipboard and saved in password.txt file.
-
-## Contributing
-
-If you would like to contribute to this project, feel free to submit a pull request.
+If you encounter any issues with copying the generated password to the clipboard, you may need to install Xsel for Linux using the command sudo apt-get install xsel.
